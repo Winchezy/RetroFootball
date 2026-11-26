@@ -10,6 +10,12 @@ import { Scene } from "@babylonjs/core/scene";
 import { Engine } from "@babylonjs/core/Engines/engine";
 import { SceneLoaderFlags } from "@babylonjs/core/Loading/sceneLoaderFlags";
 import type { TransformNode } from "@babylonjs/core/Meshes/transformNode";
+import { Vector3 } from "@babylonjs/core/Maths/math.vector";
+import { HavokPlugin } from "@babylonjs/core/Physics/v2/Plugins/havokPlugin";
+
+import HavokPhysics from "@babylonjs/havok";
+
+import "@babylonjs/core/Physics";
 
 import "@babylonjs/core/Loading/loadingScreen";
 import "@babylonjs/core/Loading/Plugins/babylonFileLoader";
@@ -61,6 +67,16 @@ export default function Jeu() {
 	}, [canvasRef]);
 
 	async function handleLoad(engine: Engine, scene: Scene) {
+		// La scène exportée par l'éditeur active la physique : sans plugin Havok, Babylon
+		// essaie l'ancien moteur Cannon (« CANNON is not defined »). Même réglage que page.tsx.
+		const havok = await HavokPhysics();
+		if (scene.isDisposed) {
+			return;
+		}
+		const physique = new HavokPlugin(true, havok);
+		physique.setVelocityLimits(200 * 100, 100);
+		scene.enablePhysics(new Vector3(0, -981, 0), physique);
+
 		SceneLoaderFlags.ForceFullSceneLoadingForIncremental = true;
 		try {
 			await loadScene("/scene/", "example.babylon", scene, scriptsMap, { quality: "high" });
