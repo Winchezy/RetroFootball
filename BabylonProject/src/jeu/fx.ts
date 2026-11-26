@@ -413,11 +413,36 @@ export class EffetsStade {
 
 	// ------------------------------------------------------------------ mise à jour
 
+	/**
+	 * Les fontaines pyro et les confettis du corner sont au ras du sol, là où la caméra vient tourner autour
+	 * du buteur. Vues de trop près, leurs particules couvrent tout l'écran : on les coupe près de la caméra.
+	 */
+	private _eloignerDeLaCamera(): void {
+		const cam = this._scene.activeCamera;
+		if (!cam) {
+			return;
+		}
+		const c = cam.globalPosition;
+		const u = this._u;
+		const regler = (ps: ParticleSystem, rayonCoupe: number, rayonVide: number) => {
+			const base = ((ps as any)._tauxBase ??= ps.emitRate) as number;
+			const e = ps.emitter as Vector3;
+			const d = Math.hypot(e.x - c.x, e.z - c.z) / u; // distance au sol, en mètres
+			ps.emitRate = d < rayonCoupe ? 0 : base;
+			if (d < rayonVide && ps.getActiveCount() > 0) {
+				ps.reset();
+			}
+		};
+		this._pyro.forEach((ps) => regler(ps, 16, 7));
+		this._confettis.filter((ps) => ps.name.startsWith("Confettis_Coin")).forEach((ps) => regler(ps, 22, 10));
+	}
+
 	public maj(dt: number): void {
 		this._t += dt;
 		const t = this._t;
 		const enFete = t < this._feteFin;
 		const depuis = t - this._feteDebut;
+		this._eloignerDeLaCamera();
 
 		// Projecteurs : stroboscope pendant la première seconde et demie de la fête.
 		this._projecteurs.forEach(({ light, base }, i) => {

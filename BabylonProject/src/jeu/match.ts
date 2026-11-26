@@ -4,7 +4,7 @@
  * x = longueur du terrain (buts en x = ±52,5), z = largeur (lignes de touche en z = ±34), y = hauteur.
  * Les Rouges attaquent vers +x, les Bleus vers -x.
  */
-import { Color3, FreeCamera, Mesh, MeshBuilder, Quaternion, Scene, StandardMaterial, TransformNode, Vector3 } from "@babylonjs/core";
+import { Color3, FreeCamera, Matrix, Mesh, MeshBuilder, Quaternion, Scene, StandardMaterial, TransformNode, Vector3 } from "@babylonjs/core";
 
 import type { AudioJeu } from "./audio";
 import type { EffetsStade } from "./fx";
@@ -30,7 +30,7 @@ import {
 	poseTeteBasse,
 	ss,
 } from "./rig";
-import { STATS, type Equipe, type InterfaceRetro } from "./ui";
+import { STATS, type Aide, type Equipe, type InterfaceRetro } from "./ui";
 
 const L = 52.5;
 const W = 34;
@@ -39,6 +39,10 @@ const BUT_H = 2.44;
 const R = 0.22;
 const G = 9.81;
 const PAS = 1 / 60;
+/** Distance (m) à partir de laquelle le joueur le plus proche attire le ballon devant ses pieds. */
+const RAYON_AIMANT = 2.6;
+/** Durée (s) du glissement du ballon jusqu'aux pieds au moment de la prise. */
+const PRISE_DUREE = 0.14;
 
 const sens = (e: Equipe) => (e === "rouge" ? 1 : -1);
 const autre = (e: Equipe): Equipe => (e === "rouge" ? "bleu" : "rouge");
@@ -176,6 +180,8 @@ export class Match {
 	private _gardienDecide = -1;
 	private _arretReussi = false;
 	private _ballonRot = Quaternion.Identity();
+	private _priseT = 0;
+	private _priseDepart = new Vector3();
 	private _dansFilet = false;
 
 	// déroulement
@@ -340,6 +346,50 @@ export class Match {
 		}
 		this._rendre(dt);
 		this._ui.majHud(this.scoreRouge, this.scoreBleu, this._minute, this._charge >= 0 ? this._puissance() : null);
+		this._ui.majAides(this._aides());
+	}
+
+	/** Touches proposées selon la situation du joueur contrôlé. */
+	private _aides(): Aide[] {
+		const j = this._controle;
+		if (!j || (this._etat !== "jeu" && this._etat !== "engagement")) {
+			return [];
+		}
+		const sprint: Aide = { touches: ["MAJ"], texte: "SPRINT", discret: true };
+		if (this._charge >= 0) {
+			return [
+				{ touches: ["X"], texte: "RELACHE POUR TIRER", chaud: true },
+				{ touches: ["▲", "▼"], texte: "VISER" },
+			];
+		}
+		const adversaires = this._joueurs.filter((o) => o.equipe !== j.equipe && !o.gardien);
+		if (this._porteur === j) {
+			const dBut = Math.hypot(L * sens(j.equipe) - j.x, j.z);
+			const presse = adversaires.some((o) => Math.hypot(o.x - j.x, o.z - j.z) < 3.5);
+			const tirable = dBut < 26 && Math.abs(j.z) < 20;
+			return [
+				{ touches: ["ESPACE"], texte: "PASSE", chaud: presse && !tirable },
+				{ touches: ["X"], texte: tirable ? "TIRE !" : "TIR (MAINTENIR)", chaud: tirable },
+				sprint,
+			];
+		}
+		const porteur = this._porteur;
+		if (porteur && porteur.equipe !== j.equipe) {
+			const d = Math.hypot(porteur.x - j.x, porteur.z - j.z);
+			const loin = this._joueurs.some((m) => m.equipe === j.equipe && m !== j && !m.gardien && Math.hypot(porteur.x - m.x, porteur.z - m.z) + 6 < d);
+			return [
+				{ touches: ["C"], texte: j.tacleCd > 0 ? "TACLE..." : "TACLE", chaud: d < 3 && j.tacleCd <= 0 },
+				{ touches: ["V"], texte: "CHANGER DE JOUEUR", chaud: loin },
+				sprint,
+			];
+		}
+		// ballon libre ou chez un coéquipier
+		const libre = !porteur;
+		return [
+			{ touches: ["ZQSD"], texte: libre ? "VA AU BALLON" : "DEMARQUE-TOI" },
+			{ touches: ["V"], texte: "CHANGER DE JOUEUR" },
+			sprint,
+		];
 	}
 
 	private _puissance(): number {
@@ -924,17 +974,69 @@ export class Match {
 
 	// ------------------------------------------------------------------ ballon
 
+	/** Le joueur prend le ballon : il glisse en douceur jusqu'à ses pieds au lieu de s'y téléporter. */
+	private _prendre(j: Joueur): void {
+		this._porteur = j;
+		this._dernier = j;
+		this._tirEquipe = null;
+		this._priseT = PRISE_DUREE;
+		this._priseDepart.copyFrom(this._b);
+	}
+
+	/**
+	 * Aimantation à la réception : quand le ballon est libre, à terre et pas trop rapide, le joueur de champ
+	 * le plus proche l'attire progressivement devant ses pieds (dans sa direction de course).
+	 */
+	private _aimanter(h: number): void {
+		const vitesse = Math.hypot(this._bv.x, this._bv.z);
+		if (this._etat !== "jeu" || this._b.y > 0.9 || vitesse > 16 || this._dansFilet) {
+			return;
+		}
+		let proche: Joueur | null = null;
+		let dMin = RAYON_AIMANT;
+		for (const j of this._joueurs) {
+			if (j.gardien || j.bloque > 0 || j.sonne > 0 || j.action?.type === "tacle") continue;
+			const d = Math.hypot(j.x - this._b.x, j.z - this._b.z);
+			if (d < dMin) {
+				dMin = d;
+				proche = j;
+			}
+		}
+		if (!proche) {
+			return;
+		}
+		// « devant » = sa direction de course ; à l'arrêt, du côté où se trouve le ballon
+		let [dx, dz] = dirDepuis(proche.cap);
+		if (Math.hypot(proche.vx, proche.vz) < 1) {
+			const n = dMin || 1;
+			dx = (this._b.x - proche.x) / n;
+			dz = (this._b.z - proche.z) / n;
+		}
+		const cx = proche.x + dx * 0.55;
+		const cz = proche.z + dz * 0.55;
+		const force = 1 - dMin / RAYON_AIMANT; // 0 au bord de la zone, 1 au contact
+		const a = clamp(h * (4 + 14 * force));
+		this._bv.x = lerp(this._bv.x, proche.vx + (cx - this._b.x) * 7, a);
+		this._bv.z = lerp(this._bv.z, proche.vz + (cz - this._b.z) * 7, a);
+	}
+
 	private _majBallon(h: number): void {
 		const p = this._porteur;
 		if (p) {
+			const [fx, fz] = dirDepuis(p.cap);
+			const cible = new Vector3();
 			if (p.gardien) {
-				const [fx, fz] = dirDepuis(p.cap);
-				this._b.set(p.x + fx * 0.35, 1.15, p.z + fz * 0.35);
+				cible.set(p.x + fx * 0.35, 1.15, p.z + fz * 0.35);
 			} else {
-				const [fx, fz] = dirDepuis(p.cap);
 				const vit = Math.hypot(p.vx, p.vz);
 				const avance = 0.5 + 0.25 * Math.abs(Math.sin(p.phase));
-				this._b.set(p.x + fx * avance, R + 0.03 * Math.abs(Math.sin(p.phase * 2)) * clamp(vit / 6), p.z + fz * avance);
+				cible.set(p.x + fx * avance, R + 0.03 * Math.abs(Math.sin(p.phase * 2)) * clamp(vit / 6), p.z + fz * avance);
+			}
+			if (this._priseT > 0) {
+				this._priseT = Math.max(0, this._priseT - h);
+				this._b.copyFrom(Vector3.Lerp(this._priseDepart, cible, ss(0, 1, 1 - this._priseT / PRISE_DUREE)));
+			} else {
+				this._b.copyFrom(cible);
 			}
 			this._bv.set(p.vx, 0, p.vz);
 			this._fx.trainee(false, this._monde(this._b));
@@ -956,6 +1058,7 @@ export class Match {
 		const frottement = auSol ? 1.1 : 0.12;
 		this._bv.x *= Math.max(0, 1 - frottement * h);
 		this._bv.z *= Math.max(0, 1 - frottement * h);
+		this._aimanter(h);
 
 		// poteaux et barre
 		for (const sx of [-1, 1]) {
@@ -1010,8 +1113,7 @@ export class Match {
 					const humain = o === this._controle;
 					const taux = humain ? 1.4 : 0.5 + STATS[o.equipe].def * 0.06 + this._p.difficulte * 0.2;
 					if (Math.random() < taux * PAS) {
-						this._porteur = o;
-						this._dernier = o;
+						this._prendre(o);
 						p.bloque = 0.6;
 						if (o.equipe === this._p.equipe) this._controle = o;
 					}
@@ -1040,9 +1142,7 @@ export class Match {
 						this._audio.occasion();
 						return;
 					}
-					this._porteur = j;
-					this._dernier = j;
-					this._tirEquipe = null;
+					this._prendre(j);
 					this._bv.set(0, 0, 0);
 					this._decisionIA.set(j, 1.3);
 					if (tirAdverse) this._audio.occasion();
@@ -1060,9 +1160,7 @@ export class Match {
 					j.bloque = 0.3;
 					continue;
 				}
-				this._porteur = j;
-				this._dernier = j;
-				this._tirEquipe = null;
+				this._prendre(j);
 				if (j.equipe === this._p.equipe) this._controle = j;
 				return;
 			}
@@ -1272,6 +1370,25 @@ export class Match {
 		}
 
 		this._majCamera(dt);
+		this._placerAides(c, visible);
+	}
+
+	/** Projette le point au-dessus de la tête du joueur contrôlé pour y poser la bulle d'aide. */
+	private _placerAides(c: Joueur | null, visible: boolean): void {
+		const canvas = this._scene.getEngine().getRenderingCanvas();
+		if (!c || !visible || !canvas) {
+			this._ui.placerAides(0, 0, false);
+			return;
+		}
+		this.camera.getViewMatrix(true); // la caméra vient de bouger : matrices à jour
+		const moteur = this._scene.getEngine();
+		const w = moteur.getRenderWidth();
+		const h = moteur.getRenderHeight();
+		const monde = this._monde(new Vector3(c.x, 3.1, c.z));
+		const p = Vector3.Project(monde, Matrix.IdentityReadOnly, this.camera.getTransformationMatrix(), this.camera.viewport.toGlobal(w, h));
+		const devant = p.z > 0 && p.z < 1;
+		const r = canvas.getBoundingClientRect();
+		this._ui.placerAides(r.left + (p.x / w) * r.width, r.top + (p.y / h) * r.height, devant);
 	}
 
 	private _majCamera(dt: number): void {

@@ -171,7 +171,11 @@ export default class RetroFootballJeu implements IScript {
 		this._introEvenements.clear();
 		this._ui.afficherIntro();
 		this._fx.calmer();
-		this._scene.activeCamera = this._cameraIntro;
+		// L'éditeur convertit la scène sans retourner l'orientation des caméras glTF : la caméra animée de
+		// Blender est bien placée mais regarde dans la mauvaise direction. On reprend sa position et on
+		// vise nous-mêmes (ballon puis buteur), comme dans Blender.
+		this._scene.activeCamera = this._cameraJeu;
+		this._viseeIntro = null;
 		this._scene.animationGroups.forEach((g) => {
 			g.stop();
 			g.start(false, 1, g.from, g.to);
@@ -179,16 +183,40 @@ export default class RetroFootballJeu implements IScript {
 		this._audio.demarrerFoule();
 	}
 
+	private _viseeIntro: Vector3 | null = null;
+
+	private _cameraDIntro(frame: number, dt: number): void {
+		const source = this._cameraIntro;
+		const ballon = this._scene.getNodeByName("Ballon") as TransformNode | null;
+		const bassin = this._scene.getNodeByName("Rouge_09_Bassin") as TransformNode | null;
+		if (!source || !ballon || !bassin) {
+			return;
+		}
+		(source.parent as TransformNode | null)?.computeWorldMatrix(true);
+		source.computeWorldMatrix();
+		ballon.computeWorldMatrix(true);
+		bassin.computeWorldMatrix(true);
+		const echelle = (ballon.parent as TransformNode | null)?.absoluteScaling.y ?? 1;
+		const b = ballon.getAbsolutePosition();
+		const h = bassin.getAbsolutePosition();
+		const t = Math.min(1, Math.max(0, (frame - 80) / 16));
+		const w = t * t * (3 - 2 * t);
+		const cible = Vector3.Lerp(b, h, w);
+		cible.y += (frame > 150 ? 0.35 : 0.1) * echelle * w;
+		this._viseeIntro = this._viseeIntro ? Vector3.Lerp(this._viseeIntro, cible, Math.min(1, dt * 8)) : cible;
+		this._cameraJeu.position.copyFrom(source.globalPosition);
+		this._cameraJeu.setTarget(this._viseeIntro);
+		// zoom de la caméra (même courbe que dans Blender)
+		const i = Math.max(0, (frame - 1) / 5);
+		const a = Math.min(FOV_CAMERA.length - 1, Math.floor(i));
+		const c = Math.min(FOV_CAMERA.length - 1, a + 1);
+		this._cameraJeu.fov = FOV_CAMERA[a] + (FOV_CAMERA[c] - FOV_CAMERA[a]) * (i - a);
+	}
+
 	private _majIntro(dt: number): void {
 		this._introT += dt;
 		const frame = 1 + this._introT * 30;
-		// zoom de la caméra (même courbe que dans Blender)
-		if (this._cameraIntro) {
-			const i = Math.max(0, (frame - 1) / 5);
-			const a = Math.min(FOV_CAMERA.length - 1, Math.floor(i));
-			const b = Math.min(FOV_CAMERA.length - 1, a + 1);
-			this._cameraIntro.fov = FOV_CAMERA[a] + (FOV_CAMERA[b] - FOV_CAMERA[a]) * (i - a);
-		}
+		this._cameraDIntro(frame, dt);
 		const une = (cle: string, f: number, action: () => void) => {
 			if (frame >= f && !this._introEvenements.has(cle)) {
 				this._introEvenements.add(cle);

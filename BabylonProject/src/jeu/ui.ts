@@ -37,6 +37,9 @@ const DIFFICULTES = ["FACILE", "NORMAL", "DIFFICILE"];
 
 type Element = { el: HTMLElement; action?: () => void; gauche?: () => void; droite?: () => void };
 
+/** Une aide de touche du HUD : `chaud` = action conseillée (mise en avant), `discret` = rappel secondaire. */
+export type Aide = { touches: string[]; texte: string; chaud?: boolean; discret?: boolean };
+
 const CSS = `
 .rf-ui{position:absolute;inset:0;z-index:20;font-family:"Press Start 2P","Courier New",monospace;color:#f5e6c8;
   pointer-events:none;overflow:hidden;user-select:none;-webkit-font-smoothing:none;image-rendering:pixelated}
@@ -130,7 +133,7 @@ const CSS = `
 .rf-score .pts{min-width:34px;justify-content:center;color:#fff36b}
 .rf-score .moi::after{content:"◄";color:#fff36b;margin-left:4px;font-size:.8em}
 .rf-score .temps{background:#000;color:#7dff8a}
-.rf-puissance{position:absolute;bottom:7vh;left:50%;width:min(360px,60vw);transform:translateX(-50%);height:22px;background:#0b0d26;box-shadow:0 0 0 4px #000,0 0 0 7px #f5e6c8}
+.rf-puissance{position:absolute;bottom:84px;left:50%;width:min(360px,60vw);transform:translateX(-50%);height:22px;background:#0b0d26;box-shadow:0 0 0 4px #000,0 0 0 7px #f5e6c8}
 .rf-puissance i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,#7dff8a 0 12px,#3fb04a 12px 14px)}
 .rf-puissance.fort i{background:repeating-linear-gradient(90deg,#ffd23a 0 12px,#b98a00 12px 14px)}
 .rf-puissance.max i{background:repeating-linear-gradient(90deg,#ff3b3b 0 12px,#a10f22 12px 14px)}
@@ -141,6 +144,17 @@ const CSS = `
   -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(6px 6px 0 #000);animation:rf-zoom .45s steps(5) forwards,rf-arc 1s linear infinite,rf-secousse .2s steps(3) 6}
 @keyframes rf-zoom{0%{transform:scale(3);opacity:0}100%{transform:scale(1);opacity:1}}
 @keyframes rf-arc{to{background-position:300% 0}}
+.rf-touches{position:absolute;left:0;top:0;display:flex;gap:12px;align-items:center;white-space:nowrap;will-change:transform;
+  font-size:clamp(6px,.6vw,9px);color:#e3e6ff;text-shadow:2px 2px 0 #000;padding:6px 9px;background:rgba(6,8,30,.78);
+  box-shadow:0 0 0 2px #000,0 0 0 4px rgba(255,210,58,.55)}
+.rf-touches:empty{display:none}
+.rf-touches::after{content:"";position:absolute;left:50%;bottom:-9px;margin-left:-6px;border:6px solid transparent;border-top-color:rgba(255,210,58,.75);border-bottom:0}
+.rf-touches .a{display:flex;align-items:center;gap:5px}
+.rf-touches .rf-touche{padding:4px 5px;margin:0;font-size:.95em;text-shadow:none}
+.rf-touches .a.discret{opacity:.55}
+.rf-touches .a.chaud{color:#fff36b;animation:rf-chaud .5s steps(2) infinite}
+.rf-touches .a.chaud .rf-touche{background:#ffd23a;box-shadow:inset -3px -4px 0 #b98a00,0 0 0 3px #000,0 0 12px 2px #ff9a1a}
+@keyframes rf-chaud{50%{transform:translateY(-3px)}}
 .rf-aide{position:absolute;bottom:16px;right:18px;font-size:clamp(7px,.75vw,10px);color:#c7cbe8;text-shadow:2px 2px 0 #000}
 .rf-resultat{font-size:clamp(26px,5vw,64px);margin-bottom:22px;text-align:center;animation:rf-zoom .5s steps(5)}
 .rf-resultat.v{color:#7dff8a;text-shadow:5px 5px 0 #0a5a14}.rf-resultat.d{color:#ff5050;text-shadow:5px 5px 0 #5a0a0a}.rf-resultat.n{color:#ffd23a;text-shadow:5px 5px 0 #6a4a00}
@@ -576,9 +590,54 @@ export class InterfaceRetro {
 			</div>
 			<div class="rf-puissance rf-cache"><b>PUISSANCE</b><i></i></div>
 			<div class="rf-msg"></div>
+			<div class="rf-touches"></div>
 			<div class="rf-aide">ECHAP : PAUSE</div>`;
 		this._racine.insertBefore(h, this._racine.querySelector(".rf-crt"));
 		this._hud = h;
+		this._aidesCle = "";
+	}
+
+	private _aidesCle = "";
+
+	/**
+	 * Place la bulle d'aide au-dessus du joueur contrôlé. `x`, `y` : position à l'écran (coordonnées client)
+	 * du point au-dessus de sa tête ; `visible` faux quand il est hors champ.
+	 */
+	public placerAides(x: number, y: number, visible: boolean): void {
+		const bulle = this._hud?.querySelector(".rf-touches") as HTMLElement | null;
+		if (!bulle) {
+			return;
+		}
+		bulle.style.visibility = visible ? "visible" : "hidden";
+		if (!visible) {
+			return;
+		}
+		const base = this._racine.getBoundingClientRect();
+		const l = bulle.offsetWidth;
+		const marge = 8;
+		// garde la bulle entièrement à l'écran
+		const px = Math.max(marge + l / 2, Math.min(base.width - marge - l / 2, x - base.left));
+		const py = Math.max(bulle.offsetHeight + marge, y - base.top);
+		bulle.style.transform = `translate(${Math.round(px - l / 2)}px, ${Math.round(py - bulle.offsetHeight)}px)`;
+	}
+
+	/** Touches utiles dans la situation actuelle (bulle au-dessus du joueur contrôlé). */
+	public majAides(aides: Aide[]): void {
+		if (!this._hud) {
+			return;
+		}
+		const cle = JSON.stringify(aides);
+		if (cle === this._aidesCle) {
+			return;
+		}
+		this._aidesCle = cle;
+		const barre = this._hud.querySelector(".rf-touches") as HTMLElement;
+		barre.innerHTML = aides
+			.map(
+				(a) =>
+					`<span class="a${a.chaud ? " chaud" : ""}${a.discret ? " discret" : ""}">${a.touches.map((t) => `<span class="rf-touche">${t}</span>`).join("")}<span class="t">${a.texte}</span></span>`,
+			)
+			.join("");
 	}
 
 	public masquerHud(): void {
