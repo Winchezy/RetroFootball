@@ -1,0 +1,55 @@
+{
+    "tags": null,
+    "angle": 1.3089969158172607,
+    "innerAngle": 0.5235987351179858,
+    "projectionTextureLightNear": 0.000001,
+    "projectionTextureLightFar": 1000,
+    "projectionTextureUpDirection": {
+        "_isDirty": true,
+        "_x": 0,
+        "_y": 1,
+        "_z": 0
+    },
+    "exponent": 1,
+    "position": [
+        0,
+        0,
+        0
+    ],
+    "direction": [
+        0,
+        0,
+        -1
+    ],
+    "range": 1.7976931348623157e+308,
+    "intensityMode": 0,
+    "radius": 0.00001,
+    "diffuse": [
+        1,
+        0.949999988079071,
+        0.8500000238418579
+    ],
+    "specular": [
+        1,
+        1,
+        1
+    ],
+    "falloffType": 2,
+    "intensity": 15979.315441369383,
+    "_renderPriority": 0,
+    "shadowEnabled": true,
+    "excludeWithLayerMask": 0,
+    "includeOnlyWithLayerMask": 0,
+    "lightmapMode": 0,
+    "name": "Pylone_ON_Spot",
+    "id": "6453b0a5-8725-4b7f-900b-991c4e607bfd",
+    "state": "",
+    "metadata": {
+        "parentId": 1795696923362
+    },
+    "uniqueId": 1795696923238,
+    "type": 2,
+    "animations": [],
+    "ranges": [],
+    "isEnabled": true
+}

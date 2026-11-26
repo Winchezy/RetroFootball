@@ -1,0 +1,71 @@
+{
+    "tags": null,
+    "position": [
+        -46,
+        18,
+        33
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "FX_Confettis_Coin",
+    "id": "f879ce94-6e63-4070-b01b-71d9c5ed0d3f",
+    "state": "",
+    "metadata": {
+        "gltf": {
+            "extras": {
+                "fx": "confettis",
+                "debut": 79,
+                "fin": 200,
+                "taille": [
+                    16,
+                    8,
+                    1
+                ],
+                "quantite": 1500
+            }
+        },
+        "parentId": 1795696922973
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923327,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

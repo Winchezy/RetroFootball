@@ -1,0 +1,58 @@
+{
+    "tags": null,
+    "position": [
+        -62.08000183105469,
+        34,
+        44.619998931884766
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        -0.18482539057731628,
+        -0.44631898403167725,
+        -0.09476994723081589,
+        0.8704352974891663
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "Pylone_ES_Spot",
+    "id": "ba201605-6cac-430b-995b-628659ad0cf5",
+    "state": "",
+    "metadata": {
+        "parentId": 1795696922973
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923361,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

@@ -1,0 +1,70 @@
+{
+    "tags": null,
+    "position": [
+        0,
+        4.5,
+        -45.400001525878906
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "FX_Flashs_Nord",
+    "id": "c4af44bd-ed19-47ad-a0aa-2271fd41efc1",
+    "state": "",
+    "metadata": {
+        "gltf": {
+            "extras": {
+                "fx": "flashs",
+                "debut": 1,
+                "fin": 390,
+                "taille": [
+                    110,
+                    11,
+                    7
+                ]
+            }
+        },
+        "parentId": 1795696922973
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923346,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

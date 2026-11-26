@@ -1,0 +1,52 @@
+{
+    "tags": null,
+    "shadowFrustumSize": 0,
+    "shadowOrthoScale": 0.1,
+    "autoUpdateExtends": true,
+    "autoCalcShadowZBounds": false,
+    "orthoLeft": 1.7976931348623157e+308,
+    "orthoRight": 5e-324,
+    "orthoTop": 5e-324,
+    "orthoBottom": 1.7976931348623157e+308,
+    "position": [
+        0,
+        0,
+        0
+    ],
+    "direction": [
+        0,
+        0,
+        -1
+    ],
+    "range": 1.7976931348623157e+308,
+    "intensityMode": 0,
+    "radius": 0.00001,
+    "diffuse": [
+        0.6000000238418579,
+        0.699999988079071,
+        1
+    ],
+    "specular": [
+        1,
+        1,
+        1
+    ],
+    "falloffType": 2,
+    "intensity": 0.546399986196775,
+    "_renderPriority": 0,
+    "shadowEnabled": true,
+    "excludeWithLayerMask": 0,
+    "includeOnlyWithLayerMask": 0,
+    "lightmapMode": 0,
+    "name": "Lune",
+    "id": "3e6c3341-2448-45af-9bad-491fca0b391f",
+    "state": "",
+    "metadata": {
+        "parentId": 1795696923358
+    },
+    "uniqueId": 1795696923235,
+    "type": 1,
+    "animations": [],
+    "ranges": [],
+    "isEnabled": true
+}

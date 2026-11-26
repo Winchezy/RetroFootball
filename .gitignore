@@ -1,0 +1,15 @@
+# Dépendances et builds du projet Babylon.js Editor / Next.js
+BabylonProject/node_modules/
+BabylonProject/.next/
+BabylonProject/.bjseditor/
+BabylonProject/*.tsbuildinfo
+
+# Sauvegardes automatiques de Blender
+*.blend1
+
+# Rendus vidéo (volumineux, régénérables depuis le .blend)
+Rendus/
+
+# Système
+.DS_Store
+Thumbs.db

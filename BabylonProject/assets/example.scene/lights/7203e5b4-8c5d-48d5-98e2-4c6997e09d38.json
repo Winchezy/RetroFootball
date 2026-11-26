@@ -1,0 +1,40 @@
+{
+    "tags": null,
+    "shadowAngle": 1.5707963267948966,
+    "position": [
+        0,
+        0,
+        0
+    ],
+    "range": 1.7976931348623157e+308,
+    "intensityMode": 0,
+    "radius": 0.00001,
+    "diffuse": [
+        1,
+        0.8999999761581421,
+        0.800000011920929
+    ],
+    "specular": [
+        1,
+        1,
+        1
+    ],
+    "falloffType": 2,
+    "intensity": 0,
+    "_renderPriority": 0,
+    "shadowEnabled": true,
+    "excludeWithLayerMask": 0,
+    "includeOnlyWithLayerMask": 0,
+    "lightmapMode": 0,
+    "name": "Lumiere_Buteur",
+    "id": "7203e5b4-8c5d-48d5-98e2-4c6997e09d38",
+    "state": "",
+    "metadata": {
+        "parentId": 1795696923319
+    },
+    "uniqueId": 1795696923228,
+    "type": 0,
+    "animations": [],
+    "ranges": [],
+    "isEnabled": true
+}

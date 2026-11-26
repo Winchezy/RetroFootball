@@ -1,0 +1,65 @@
+{
+    "tags": null,
+    "position": [
+        -46,
+        1.100000023841858,
+        38.20000076293945
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "FX_Pyro_2",
+    "id": "c44724c2-c360-4662-82f6-f972f958cfa8",
+    "state": "",
+    "metadata": {
+        "gltf": {
+            "extras": {
+                "fx": "pyro",
+                "debut": 80,
+                "fin": 175
+            }
+        },
+        "parentId": 1795696922973
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923356,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

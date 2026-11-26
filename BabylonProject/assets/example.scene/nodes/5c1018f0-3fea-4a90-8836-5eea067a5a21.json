@@ -1,0 +1,58 @@
+{
+    "tags": null,
+    "position": [
+        -0.0000032006262244976824,
+        0,
+        0
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "Bleu_05_BrasD",
+    "id": "5c1018f0-3fea-4a90-8836-5eea067a5a21",
+    "state": "",
+    "metadata": {
+        "parentId": 1795696923296
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923295,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

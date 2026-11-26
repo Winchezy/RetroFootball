@@ -1,0 +1,58 @@
+{
+    "tags": null,
+    "position": [
+        0.000002330867573618889,
+        0,
+        0
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "Rouge_09_Torse",
+    "id": "6cb14408-c538-4f4d-8a60-fcce7b4431a9",
+    "state": "",
+    "metadata": {
+        "parentId": 1795696923428
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923427,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

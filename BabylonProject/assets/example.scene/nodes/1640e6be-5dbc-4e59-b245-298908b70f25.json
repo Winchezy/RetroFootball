@@ -1,0 +1,70 @@
+{
+    "tags": null,
+    "position": [
+        -65.4000015258789,
+        4.5,
+        0
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "FX_Flashs_Est",
+    "id": "1640e6be-5dbc-4e59-b245-298908b70f25",
+    "state": "",
+    "metadata": {
+        "gltf": {
+            "extras": {
+                "fx": "flashs",
+                "debut": 1,
+                "fin": 390,
+                "taille": [
+                    11,
+                    76,
+                    7
+                ]
+            }
+        },
+        "parentId": 1795696922973
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923345,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

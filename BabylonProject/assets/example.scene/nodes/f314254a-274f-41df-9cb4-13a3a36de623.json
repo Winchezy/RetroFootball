@@ -1,0 +1,58 @@
+{
+    "tags": null,
+    "position": [
+        -0.5999999642372131,
+        0.7999997138977051,
+        0
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "Lumiere_Buteur",
+    "id": "f314254a-274f-41df-9cb4-13a3a36de623",
+    "state": "",
+    "metadata": {
+        "parentId": 1795696923320
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923319,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

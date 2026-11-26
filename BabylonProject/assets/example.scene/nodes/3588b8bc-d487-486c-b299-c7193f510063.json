@@ -1,0 +1,58 @@
+{
+    "tags": null,
+    "position": [
+        -0.000004137791620451026,
+        0.0000021904706954956055,
+        0
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "Bleu_01_JambeG",
+    "id": "3588b8bc-d487-486c-b299-c7193f510063",
+    "state": "",
+    "metadata": {
+        "parentId": 1795696923250
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923249,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}
