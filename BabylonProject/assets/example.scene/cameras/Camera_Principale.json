@@ -1,0 +1,92 @@
+{
+    "tags": null,
+    "ellipsoid": [
+        0.5,
+        1,
+        0.5
+    ],
+    "ellipsoidOffset": [
+        0,
+        0,
+        0
+    ],
+    "checkCollisions": false,
+    "applyGravity": false,
+    "updateUpVectorFromRotation": false,
+    "rotation": [
+        -2.7755575615628914e-17,
+        3.141592653589793,
+        -2.7755575615628914e-17
+    ],
+    "speed": 2,
+    "inertia": 0.9,
+    "mode": 0,
+    "position": [
+        -7.105427357601002e-15,
+        -4.440892098500626e-15,
+        0
+    ],
+    "upVector": [
+        -2.7755575615628914e-17,
+        1,
+        2.7755575615628907e-17
+    ],
+    "fov": 0.6509917361266737,
+    "projectionPlaneTilt": 0,
+    "minZ": 0.10000000149011612,
+    "maxZ": 600,
+    "layerMask": 268435455,
+    "fovMode": 0,
+    "cameraRigMode": 0,
+    "ignoreCameraMaxZ": false,
+    "name": "Camera_Principale",
+    "id": "Camera_Principale",
+    "state": "",
+    "metadata": {
+        "sensorSize": 36,
+        "focalLength": 53.33333107548955,
+        "parentId": 1795696923320
+    },
+    "uniqueId": 405,
+    "type": "FreeCamera",
+    "inputsmgr": {
+        "FreeCameraKeyboardMoveInput": {
+            "tags": null,
+            "keysUp": [
+                38
+            ],
+            "keysUpward": [
+                33
+            ],
+            "keysDown": [
+                40
+            ],
+            "keysDownward": [
+                34
+            ],
+            "keysLeft": [
+                37
+            ],
+            "keysRight": [
+                39
+            ],
+            "rotationSpeed": 0.5,
+            "keysRotateLeft": [],
+            "keysRotateRight": [],
+            "keysRotateUp": [],
+            "keysRotateDown": []
+        },
+        "FreeCameraMouseInput": {
+            "tags": null,
+            "buttons": [
+                0,
+                1,
+                2
+            ],
+            "angularSensibility": 2000
+        }
+    },
+    "animations": [],
+    "ranges": [],
+    "isEnabled": true
+}

@@ -1,0 +1,71 @@
+{
+    "tags": null,
+    "position": [
+        67,
+        22,
+        0
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "FX_Confettis_Ouest",
+    "id": "fa63eeb3-dd2a-4203-bc99-a05f65e48694",
+    "state": "",
+    "metadata": {
+        "gltf": {
+            "extras": {
+                "fx": "confettis",
+                "debut": 79,
+                "fin": 200,
+                "taille": [
+                    10,
+                    70,
+                    1
+                ],
+                "quantite": 3000
+            }
+        },
+        "parentId": 1795696922973
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923329,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

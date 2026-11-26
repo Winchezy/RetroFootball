@@ -1,0 +1,70 @@
+{
+    "tags": null,
+    "position": [
+        0,
+        4.5,
+        45.400001525878906
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "FX_Flashs_Sud",
+    "id": "40479618-73db-450a-b40e-c275edf2d549",
+    "state": "",
+    "metadata": {
+        "gltf": {
+            "extras": {
+                "fx": "flashs",
+                "debut": 1,
+                "fin": 390,
+                "taille": [
+                    110,
+                    11,
+                    7
+                ]
+            }
+        },
+        "parentId": 1795696922973
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923348,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

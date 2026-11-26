@@ -1,0 +1,71 @@
+{
+    "tags": null,
+    "position": [
+        0,
+        22,
+        -47
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "FX_Confettis_Nord",
+    "id": "40f48720-97ff-4ba6-80af-7c48fa84e546",
+    "state": "",
+    "metadata": {
+        "gltf": {
+            "extras": {
+                "fx": "confettis",
+                "debut": 79,
+                "fin": 200,
+                "taille": [
+                    100,
+                    10,
+                    1
+                ],
+                "quantite": 3000
+            }
+        },
+        "parentId": 1795696922973
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923328,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

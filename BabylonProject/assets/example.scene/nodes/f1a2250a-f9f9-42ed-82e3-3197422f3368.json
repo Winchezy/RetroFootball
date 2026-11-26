@@ -1,0 +1,58 @@
+{
+    "tags": null,
+    "position": [
+        -0.0000024903565645217896,
+        0,
+        0
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "Rouge_07_BrasG",
+    "id": "f1a2250a-f9f9-42ed-82e3-3197422f3368",
+    "state": "",
+    "metadata": {
+        "parentId": 1795696923408
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923407,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

@@ -1,0 +1,69 @@
+{
+    "tags": null,
+    "position": [
+        -58,
+        40,
+        30
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "FX_FeuArtifice_09",
+    "id": "0a4c3ee3-634e-463d-9723-5db195018622",
+    "state": "",
+    "metadata": {
+        "gltf": {
+            "extras": {
+                "fx": "feu_artifice",
+                "debut": 250,
+                "couleur": [
+                    1,
+                    1,
+                    1
+                ]
+            }
+        },
+        "parentId": 1795696922973
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923340,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

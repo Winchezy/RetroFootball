@@ -1,0 +1,66 @@
+{
+    "tags": null,
+    "position": [
+        0,
+        0.05000000074505806,
+        0
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "FX_Glissade",
+    "id": "b10db5d2-1545-462e-91fd-4190ba691b5c",
+    "state": "",
+    "metadata": {
+        "gltf": {
+            "extras": {
+                "fx": "herbe",
+                "debut": 157,
+                "fin": 186,
+                "quantite": 500
+            }
+        },
+        "parentId": 1795696923429
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923416,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

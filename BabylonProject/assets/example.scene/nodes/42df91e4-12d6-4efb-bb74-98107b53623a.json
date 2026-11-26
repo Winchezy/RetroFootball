@@ -1,0 +1,58 @@
+{
+    "tags": null,
+    "position": [
+        -0.0000035515108720574062,
+        0,
+        0
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "Bleu_05_BrasG",
+    "id": "42df91e4-12d6-4efb-bb74-98107b53623a",
+    "state": "",
+    "metadata": {
+        "parentId": 1795696923298
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923297,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}

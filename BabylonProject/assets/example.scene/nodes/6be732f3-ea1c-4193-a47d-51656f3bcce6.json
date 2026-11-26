@@ -1,0 +1,65 @@
+{
+    "tags": null,
+    "position": [
+        0,
+        0,
+        0
+    ],
+    "rotation": [
+        0,
+        0,
+        0
+    ],
+    "rotationQuaternion": [
+        0,
+        0,
+        0,
+        1
+    ],
+    "scaling": [
+        1,
+        1,
+        1
+    ],
+    "billboardMode": 0,
+    "scalingDeterminant": 1,
+    "infiniteDistance": false,
+    "ignoreNonUniformScaling": false,
+    "reIntegrateRotationIntoRotationQuaternion": false,
+    "name": "FX_Trainee_Ballon",
+    "id": "6be732f3-ea1c-4193-a47d-51656f3bcce6",
+    "state": "",
+    "metadata": {
+        "gltf": {
+            "extras": {
+                "fx": "trainee",
+                "debut": 60,
+                "fin": 80
+            }
+        },
+        "parentId": 1795696922974
+    },
+    "type": "TransformNode",
+    "uniqueId": 1795696923240,
+    "localMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+    ],
+    "isEnabled": true,
+    "animations": [],
+    "ranges": []
+}
